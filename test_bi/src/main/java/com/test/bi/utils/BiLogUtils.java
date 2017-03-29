@@ -1,14 +1,14 @@
-package com.example.scalephoto.utils;
+package com.test.bi.utils;
 
 import android.util.Log;
 
 /**
  * 系统的日志处理类，对android默认日志做了封装，根据系统配置的日志级别打印日志
  */
-public class NetMntLogUtils {
+public class BiLogUtils {
     private static final int LOG_LEVEL_MIN = Log.VERBOSE;
 
-    private static final String SNS_TAG = "NetMntLogUtils: ";
+    private static final String test_TAG = "BiLogUtils: ";
 
     /**
      *
@@ -41,7 +41,7 @@ public class NetMntLogUtils {
 
         // -------------------------
         StringBuffer sb = new StringBuffer();
-        sb.append(SNS_TAG);
+        sb.append(test_TAG);
         sb.append(": ");
         sb.append(msg);
 //        sb.append(" ");

@@ -1,17 +1,17 @@
-package com.example.scalephoto.utils;
+package com.test.bi.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
-public class NetMntSPUtil {
+public class BiSPUtil {
 
-    private final String TAG = "NetMntSPUtil";
+    private final String TAG = "BiSPUtil";
 
     // file name
-    private static final String PREFERENCES_FILE_NAME = "netmnt_sp";
+    private static final String PREFERENCES_FILE_NAME = "bi_sp";
 
     // instance
-    private static NetMntSPUtil INSTANCE = new NetMntSPUtil();;
+    private static BiSPUtil INSTANCE = new BiSPUtil();;
 
     // shared preference
     private SharedPreferences sp;
@@ -21,7 +21,7 @@ public class NetMntSPUtil {
     // is initialized
     private boolean initialized = false;
 
-    public static final synchronized NetMntSPUtil getInstance() {
+    public static final synchronized BiSPUtil getInstance() {
         return INSTANCE;
     }
 
@@ -43,9 +43,9 @@ public class NetMntSPUtil {
      * @param value
      */
     public void putStringValue(String key, String value) {
-        NetMntLogUtils.d(TAG, "--------putStringValue----------");
-        NetMntLogUtils.d(TAG, "key: " + key);
-        NetMntLogUtils.d(TAG, "value: " + value);
+        BiLogUtils.d(TAG, "--------putStringValue----------");
+        BiLogUtils.d(TAG, "key: " + key);
+        BiLogUtils.d(TAG, "value: " + value);
 
         editor = sp.edit();
         editor.putString(key, value);
@@ -61,7 +61,7 @@ public class NetMntSPUtil {
      * @return
      */
     public String getStringValue(String key, String defaultValue) {
-        NetMntLogUtils.d(TAG, "key: " + key);
+        BiLogUtils.d(TAG, "key: " + key);
         return sp.getString(key, defaultValue);
     }
 
@@ -140,8 +140,8 @@ public class NetMntSPUtil {
      */
     public void remove(String key) {
 
-        NetMntLogUtils.d(TAG, "--------remove----------");
-        NetMntLogUtils.d(TAG, "key: " + key);
+        BiLogUtils.d(TAG, "--------remove----------");
+        BiLogUtils.d(TAG, "key: " + key);
 
         editor = sp.edit();
         editor.remove(key);

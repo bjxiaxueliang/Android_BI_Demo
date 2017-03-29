@@ -2,65 +2,68 @@ package com.example.scalephoto;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.Button;
 
-import com.example.scalephoto.cache.NetMntDbManager;
-import com.example.scalephoto.cache.models.NetMntLogData;
-
-import java.util.List;
 
 
 public class MainActivity extends Activity {
 
-
-    private TextView mTextView;
+    Context mContext = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //
         setContentView(R.layout.activity_main);
-        //
-        mTextView = (TextView) findViewById(R.id.textView001);
 
-        findViewById(R.id.button01).setOnClickListener(new View.OnClickListener() {
+
+        this.mContext = MainActivity.this;
+
+
+        // 更新Session
+        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NetMntCollector.server_monitor(MainActivity.this, "000", "222", "333", "444", "555", "666", "777", "888", "999");
-                NetMntCollector.server_monitor(MainActivity.this, "111", "222", "333", "444", "555", "666", "777", "888", "999");
-                NetMntCollector.server_monitor(MainActivity.this, "333", "222", "333", "444", "555", "666", "777", "888", "999");
-
-
+                TestBiAgent.updateBiSession(mContext);
             }
         });
-
-        findViewById(R.id.button02).setOnClickListener(new View.OnClickListener() {
+        // 埋点一次
+        findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-                List<NetMntLogData> mList = NetMntDbManager.getInstance().query(MainActivity.this);
-                //
-                mTextView.setText(mList.toString());
-
+                // 埋点1
+                TestBiAgent.mdOneTest(mContext,123);
             }
         });
-
-        findViewById(R.id.button03).setOnClickListener(new View.OnClickListener() {
+        // Session数据
+        final Button showButton = (Button) findViewById(R.id.button3);
+        showButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                List<NetMntLogData> mList = NetMntDbManager.getInstance().query(MainActivity.this);
-                if (mList != null && mList.size() > 1) {
-                    NetMntDbManager.getInstance().deleteOldData(MainActivity.this, mList.get(1).getCtime());
-                }
-
-
+                // 显示Session数据
+                showButton.setText(BiDbManager.getInstance().queryBiSessionData(mContext).toString());
             }
         });
-
+        // 埋点数据
+        final Button biButton = (Button) findViewById(R.id.button4);
+        biButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 显示Bi数据
+                biButton.setText(BiDbManager.getInstance().queryBiData(mContext).toString());
+            }
+        });
+        // 上传
+        findViewById(R.id.button5).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO 暂时无法上传，因为没有定义上传接口
+                TestBiAgent.uploadBi(mContext);
+            }
+        });
 
     }
 }

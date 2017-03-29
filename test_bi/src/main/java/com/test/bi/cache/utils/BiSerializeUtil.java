@@ -1,4 +1,4 @@
-package com.example.scalephoto.cache.utils;
+package com.test.bi.cache.utils;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -7,9 +7,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 /**
- * Created by xueliangxia on 2017/2/28.
+ * Created by xueliangxia.
  */
-public class NetMntSerializeUtil {
+public class BiSerializeUtil {
 
     /**
      * 序列化对象

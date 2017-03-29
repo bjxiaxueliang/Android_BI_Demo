@@ -1,4 +1,4 @@
-package com.example.scalephoto.cache.db;
+package com.test.bi.cache.db;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -13,28 +13,30 @@ import android.util.Log;
 /**
  * BI DB helper
  * <p>
- * create by xiaxl on 2017.03.07.
+ * create by xiaxl.
  */
-public class NetMntHelper extends SQLiteOpenHelper {
-    private static final String TAG = "NetMntHelper";
+public class BiDbHelper extends SQLiteOpenHelper {
+    private static final String TAG = "BiDbHelper";
 
 
-    public NetMntHelper(Context context) {
-        super(context, NetMntDbContent.DATABASE_NAME, null, NetMntDbContent.DATABASE_VERSION);
+    public BiDbHelper(Context context) {
+        super(context, BiDbContent.DATABASE_NAME, null, BiDbContent.DATABASE_VERSION);
     }
 
     // 建表
     @Override
     public void onCreate(SQLiteDatabase db) {
         // 建表
-        createSnsBiTable(db);
+        createtestSessionTable(db);
+        createtestBiTable(db);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // 升级后，删除旧表
         if (newVersion >= 2 && oldVersion < 2) {
-            destorySnsBiTable(db);
+            destorytestSessionTable(db);
+            destorytestBiTable(db);
         }
         // 升级后，重建表
         onCreate(db);
@@ -42,63 +44,151 @@ public class NetMntHelper extends SQLiteOpenHelper {
     //#############################################################建表###删表###############################################################
 
     /**
-     * 建立Sns BI 数据存储表
+     * 建立Session数据存储表
      *
      * @param db
      */
-    private void createSnsBiTable(SQLiteDatabase db) {
+    private void createtestSessionTable(SQLiteDatabase db) {
         StringBuffer createCacheSql = new StringBuffer()
                 .append("CREATE TABLE IF NOT EXISTS ")
                 //
-                .append(NetMntDbContent.SnsBiTable.TABLE_NAME)
+                .append(BiDbContent.BiSessionTable.TABLE_NAME)
                 //
                 .append(" (")
                 //
                 .append("_id integer primary key autoincrement,")
                 //
-                .append(NetMntDbContent.SnsBiTable.CTIME)
+                .append(BiDbContent.BiSessionTable.TIMEID)
                 .append(" INTEGER,")
                 //
-                .append(NetMntDbContent.SnsBiTable.PAGE)
+                .append(BiDbContent.BiSessionTable.SESSIONID)
                 .append(" varchar(255),")
                 //
-                .append(NetMntDbContent.SnsBiTable.EVENT)
+                .append(BiDbContent.BiSessionTable.UID)
                 .append(" varchar(255),")
                 //
-                .append(NetMntDbContent.SnsBiTable.IP)
+                .append(BiDbContent.BiSessionTable.TOKEN)
                 .append(" varchar(255),")
                 //
-                .append(NetMntDbContent.SnsBiTable.NETWORK_TYPE)
+                .append(BiDbContent.BiSessionTable.CID)
                 .append(" varchar(255),")
                 //
-                .append(NetMntDbContent.SnsBiTable.APP_VERSION)
+                .append(BiDbContent.BiSessionTable.MAC)
                 .append(" varchar(255),")
                 //
-                .append(NetMntDbContent.SnsBiTable.OPERATOR)
+                .append(BiDbContent.BiSessionTable.IP)
                 .append(" varchar(255),")
                 //
-                .append(NetMntDbContent.SnsBiTable.SEQUENCE)
+                .append(BiDbContent.BiSessionTable.LON)
                 .append(" varchar(255),")
                 //
-                .append(NetMntDbContent.SnsBiTable.BI_DATA)
-                .append(" blob")
+                .append(BiDbContent.BiSessionTable.LAT)
+                .append(" varchar(255),")
+                //
+                .append(BiDbContent.BiSessionTable.NETWORK)
+                .append(" varchar(255),")
+                //
+                .append(BiDbContent.BiSessionTable.OPERATOR)
+                .append(" varchar(255),")
+                //
+                .append(BiDbContent.BiSessionTable.OS)
+                .append(" varchar(255),")
+                //
+                .append(BiDbContent.BiSessionTable.BRAND)
+                .append(" varchar(255),")
+                //
+                .append(BiDbContent.BiSessionTable.MODEL)
+                .append(" varchar(255),")
+                //
+                .append(BiDbContent.BiSessionTable.HW)
+                .append(" varchar(255),")
+                //
+                .append(BiDbContent.BiSessionTable.GID)
+                .append(" varchar(255),")
+                //
+                .append(BiDbContent.BiSessionTable.IDFA)
+                .append(" varchar(255),")
+                //
+                .append(BiDbContent.BiSessionTable.IMEI)
+                .append(" varchar(255),")
+                //
+                .append(BiDbContent.BiSessionTable.IMSI)
+                .append(" varchar(255),")
+                //
+                .append(BiDbContent.BiSessionTable.APP_VERSION)
+                .append(" varchar(255),")
+                //
+                .append(BiDbContent.BiSessionTable.CNAME)
+                .append(" varchar(255),")
+                //
+                .append(BiDbContent.BiSessionTable.CVERSION)
+                .append(" varchar(255)")
                 //
                 .append(");");
         db.execSQL(createCacheSql.toString());
     }
 
     /**
-     * destory sns BI 数据存储表
+     * destory test Session 数据存储表
      *
      * @param db
      */
-    private void destorySnsBiTable(SQLiteDatabase db) {
+    private void destorytestSessionTable(SQLiteDatabase db) {
         db.execSQL(new StringBuffer().append("DROP TABLE IF EXISTS ")
-                .append(NetMntDbContent.SnsBiTable.TABLE_NAME).append(";")
+                .append(BiDbContent.BiSessionTable.TABLE_NAME).append(";")
                 .toString());
     }
 
-    //##################################################################SnsBi 数据库的 增删改查 begin####################################################################
+
+    /**
+     * 建立Bi数据存储表
+     *
+     * @param db
+     */
+    private void createtestBiTable(SQLiteDatabase db) {
+        StringBuffer createCacheSql = new StringBuffer()
+                .append("CREATE TABLE IF NOT EXISTS ")
+                //
+                .append(BiDbContent.BiTable.TABLE_NAME)
+                //
+                .append(" (")
+                //
+                .append("_id integer primary key autoincrement,")
+                //
+                .append(BiDbContent.BiTable.TIMEID)
+                .append(" INTEGER,")
+                //
+                .append(BiDbContent.BiTable.SESSIONID)
+                .append(" varchar(255),")
+                //
+                .append(BiDbContent.BiTable.UID)
+                .append(" blob,")
+                //
+                .append(BiDbContent.BiTable.KEY)
+                .append(" varchar(255),")
+                //
+                .append(BiDbContent.BiTable.PARAMETERS)
+                .append(" blob,")
+                //
+                .append(BiDbContent.BiTable.SEQUENCE)
+                .append(" varchar(255)")
+                //
+                .append(");");
+        db.execSQL(createCacheSql.toString());
+    }
+
+    /**
+     * destory test BI 数据存储表
+     *
+     * @param db
+     */
+    private void destorytestBiTable(SQLiteDatabase db) {
+        db.execSQL(new StringBuffer().append("DROP TABLE IF EXISTS ")
+                .append(BiDbContent.BiTable.TABLE_NAME).append(";")
+                .toString());
+    }
+
+    //##################################################################testBi 数据库的 增删改查 begin####################################################################
 
     /**
      * 插入一条数据
@@ -113,7 +203,7 @@ public class NetMntHelper extends SQLiteOpenHelper {
             return false;
         }
         //
-        SQLiteDatabase db = this.getSnsBiDb();
+        SQLiteDatabase db = this.gettestBiDb();
         if (db == null) {
             return false;
         }
@@ -133,7 +223,7 @@ public class NetMntHelper extends SQLiteOpenHelper {
             return null;
         }
         //
-        SQLiteDatabase db = this.getSnsBiDb();
+        SQLiteDatabase db = this.gettestBiDb();
         if (db == null) {
             return null;
         }
@@ -161,7 +251,7 @@ public class NetMntHelper extends SQLiteOpenHelper {
             return -1;
         }
         //
-        SQLiteDatabase db = this.getSnsBiDb();
+        SQLiteDatabase db = this.gettestBiDb();
         if (db == null) {
             return -1;
         }
@@ -203,7 +293,7 @@ public class NetMntHelper extends SQLiteOpenHelper {
             return -1;
         }
         //
-        SQLiteDatabase db = this.getSnsBiDb();
+        SQLiteDatabase db = this.gettestBiDb();
         if (db == null) {
             return -1;
         }
@@ -232,7 +322,7 @@ public class NetMntHelper extends SQLiteOpenHelper {
             return -1;
         }
         //
-        SQLiteDatabase db = this.getSnsBiDb();
+        SQLiteDatabase db = this.gettestBiDb();
         if (db == null) {
             return -1;
         }
@@ -253,7 +343,7 @@ public class NetMntHelper extends SQLiteOpenHelper {
      *
      * @return
      */
-    public synchronized SQLiteDatabase getSnsBiDb() {
+    public synchronized SQLiteDatabase gettestBiDb() {
         return this.getWritableDatabase();
     }
 

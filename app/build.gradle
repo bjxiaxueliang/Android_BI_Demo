@@ -26,7 +26,6 @@ dependencies {
     compile files('libs/nineoldandroids-2.4.0.jar')
     compile files('libs/glide-3.6.1.jar')
     compile files('libs/gson-2.2.4.jar')
-    // https://github.com/BoltsFramework/Bolts-Android
-    compile 'com.parse.bolts:bolts-android:1.2.0'
+    compile project(':test_bi')
 }
 

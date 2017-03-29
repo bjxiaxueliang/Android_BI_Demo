@@ -1,4 +1,4 @@
-package com.example.scalephoto.utils;
+package com.test.bi.utils;
 
 
 import android.content.Context;
@@ -11,8 +11,8 @@ import android.net.NetworkInfo.State;
  *
  * @author xiaxl
  */
-public final class NetUtils {
-    private static final String TAG = NetUtils.class.getSimpleName();
+public final class BiNetUtils {
+    private static final String TAG = "BiNetUtils";
 
 
     /**
