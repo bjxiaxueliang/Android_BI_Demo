@@ -1,7 +1,7 @@
-##Android用户行为统计(Business Intelligence)
+## Android用户行为统计(Business Intelligence)
 
 
-###1、日志提交时机
+### 1、日志提交时机
 
 **wifi环境：**
 
@@ -14,7 +14,7 @@
 
 + 1、考虑到流量问题，非wifi网络下，当天的日志次日上传。
 
-###2、session规则
+### 2、session规则
 
 这里的session是用户一次会话的完整生命周期(一次进入退出是一个session会话、进入后台也算一次session会话)
 
